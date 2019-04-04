@@ -158,25 +158,25 @@ public class AntifraudIndexServiceImpl implements AntifraudIndexService {
             }
             log.info("规则结果入库完成，开始统计规则结果");
             //统计规则结果
-//            TResultCountBase tResultCountBase = new TResultCountBase();
-//            tResultCountBase.setCompanyName(tAntifraudIndex.getCustName());
-//            tResultCountBase.setPersonName(tAntifraudIndex.getName());
-//            tResultCountBase.setIdNumber(tAntifraudIndex.getIdcode());
-//            int totalCount = companyResultMapper.countAllType();
-//            tResultCountBase.setTotalcount(totalCount);
-//            int pass = companyResultMapper.countResultCountByType("通过");
-//            tResultCountBase.setPass(pass);
-//            int bad = companyResultMapper.countResultCountByType("不良");
-//            tResultCountBase.setBad(bad);
-//            int risk = companyResultMapper.countResultCountByType("风险");
-//            tResultCountBase.setRisk(risk);
-//            int audit = companyResultMapper.countResultCountByType("审核");
-//            tResultCountBase.setAudit(audit);
-//            int refuse = companyResultMapper.countResultCountByType("拒绝");
-//            tResultCountBase.setRefuse(refuse);
-//            tResultCountBase.setCreateTime(new java.sql.Timestamp(new Date().getTime()));
-//            log.info("规则结果统计入库");
-//            tResultCountBaseMapper.insert(tResultCountBase);
+            TResultCountBase tResultCountBase = new TResultCountBase();
+            tResultCountBase.setCompanyName(tAntifraudIndex.getCustName());
+            tResultCountBase.setPersonName(tAntifraudIndex.getName());
+            tResultCountBase.setIdNumber(tAntifraudIndex.getIdcode());
+            int totalCount = companyResultMapper.countAllType();
+            tResultCountBase.setTotalcount(totalCount);
+            int pass = companyResultMapper.countResultCountByType("通过");
+            tResultCountBase.setPass(pass);
+            int bad = companyResultMapper.countResultCountByType("不良");
+            tResultCountBase.setBad(bad);
+            int risk = companyResultMapper.countResultCountByType("风险");
+            tResultCountBase.setRisk(risk);
+            int audit = companyResultMapper.countResultCountByType("审核");
+            tResultCountBase.setAudit(audit);
+            int refuse = companyResultMapper.countResultCountByType("拒绝");
+            tResultCountBase.setRefuse(refuse);
+            tResultCountBase.setCreateTime(new java.sql.Timestamp(new Date().getTime()));
+            log.info("规则结果统计入库");
+            tResultCountBaseMapper.insert(tResultCountBase);
         } catch (Exception e) {
             throw new CustomException("获取决策集结果失败");
         }
