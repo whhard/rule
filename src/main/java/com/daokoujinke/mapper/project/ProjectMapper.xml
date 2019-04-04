@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daokoujinke.mapper.project.ProjectMapper">
+  <resultMap id="pro" type="com.daokoujinke.entity.project.Project">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <insert id="addProject" parameterType="com.daokoujinke.entity.project.Project">
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+               order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_project_list (id,project_name,description,version,creater,updater,
+    create_time,update_time)
+    values
+    (#{id,jdbcType=INTEGER},
+    #{projectName,jdbcType=VARCHAR},
+    #{description,jdbcType=VARCHAR},
+    #{version,jdbcType=VARCHAR},
+    #{creater,jdbcType=VARCHAR},
+    #{updater,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <select id="qeuryProjectList" resultMap="pro">
+    select * from t_project_list
+  </select>
+</mapper>

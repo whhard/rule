@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daokoujinke.mapper.OutEtlEnterpriseMapper">
+  <resultMap id="BaseResultMap" type="com.daokoujinke.entity.OutEtlEnterprise">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="EstaTime" jdbcType="INTEGER" property="estatime" />
+    <result column="RegCapital" jdbcType="VARCHAR" property="regcapital" />
+    <result column="ManageState" jdbcType="VARCHAR" property="managestate" />
+    <result column="LostExeCnt" jdbcType="INTEGER" property="lostexecnt" />
+    <result column="ExeCnt" jdbcType="INTEGER" property="execnt" />
+    <result column="OwnTaxCnt" jdbcType="INTEGER" property="owntaxcnt" />
+    <result column="OwnTaxAmtMax" jdbcType="VARCHAR" property="owntaxamtmax" />
+    <result column="OwnTaxAmtNew" jdbcType="DOUBLE" property="owntaxamtnew" />
+    <result column="OwnTaxAmtBal" jdbcType="DOUBLE" property="owntaxamtbal" />
+    <result column="LegPersonChanCnt" jdbcType="INTEGER" property="legpersonchancnt" />
+    <result column="RegCapChanPct" jdbcType="DOUBLE" property="regcapchanpct" />
+    <result column="ExeLast" jdbcType="INTEGER" property="exelast" />
+    <result column="NoticeCnt_Y" jdbcType="INTEGER" property="noticecntY" />
+    <result column="Not_LaborCnt_Y" jdbcType="INTEGER" property="notLaborcntY" />
+    <result column="Doc_LaborCnt_Y" jdbcType="INTEGER" property="docLaborcntY" />
+    <result column="Doc_FinancingCnt_B" jdbcType="INTEGER" property="docFinancingcntB" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, company_name, EstaTime, RegCapital, ManageState, LostExeCnt, ExeCnt, OwnTaxCnt, 
+    OwnTaxAmtMax, OwnTaxAmtNew, OwnTaxAmtBal, LegPersonChanCnt, RegCapChanPct, ExeLast, 
+    NoticeCnt_Y, Not_LaborCnt_Y, Doc_LaborCnt_Y, Doc_FinancingCnt_B
+  </sql>
+  <select id="selectByExample" parameterType="com.daokoujinke.entity.OutEtlEnterpriseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from out_etl_enterprise
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from out_etl_enterprise
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from out_etl_enterprise
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daokoujinke.entity.OutEtlEnterprise">
+    insert into out_etl_enterprise (id, company_name, EstaTime, 
+      RegCapital, ManageState, LostExeCnt, 
+      ExeCnt, OwnTaxCnt, OwnTaxAmtMax, 
+      OwnTaxAmtNew, OwnTaxAmtBal, LegPersonChanCnt, 
+      RegCapChanPct, ExeLast, NoticeCnt_Y, 
+      Not_LaborCnt_Y, Doc_LaborCnt_Y, Doc_FinancingCnt_B
+      )
+    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{estatime,jdbcType=INTEGER}, 
+      #{regcapital,jdbcType=VARCHAR}, #{managestate,jdbcType=VARCHAR}, #{lostexecnt,jdbcType=INTEGER}, 
+      #{execnt,jdbcType=INTEGER}, #{owntaxcnt,jdbcType=INTEGER}, #{owntaxamtmax,jdbcType=VARCHAR}, 
+      #{owntaxamtnew,jdbcType=DOUBLE}, #{owntaxamtbal,jdbcType=DOUBLE}, #{legpersonchancnt,jdbcType=INTEGER}, 
+      #{regcapchanpct,jdbcType=DOUBLE}, #{exelast,jdbcType=INTEGER}, #{noticecntY,jdbcType=INTEGER}, 
+      #{notLaborcntY,jdbcType=INTEGER}, #{docLaborcntY,jdbcType=INTEGER}, #{docFinancingcntB,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.daokoujinke.entity.OutEtlEnterprise">
+    insert into out_etl_enterprise
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="estatime != null">
+        EstaTime,
+      </if>
+      <if test="regcapital != null">
+        RegCapital,
+      </if>
+      <if test="managestate != null">
+        ManageState,
+      </if>
+      <if test="lostexecnt != null">
+        LostExeCnt,
+      </if>
+      <if test="execnt != null">
+        ExeCnt,
+      </if>
+      <if test="owntaxcnt != null">
+        OwnTaxCnt,
+      </if>
+      <if test="owntaxamtmax != null">
+        OwnTaxAmtMax,
+      </if>
+      <if test="owntaxamtnew != null">
+        OwnTaxAmtNew,
+      </if>
+      <if test="owntaxamtbal != null">
+        OwnTaxAmtBal,
+      </if>
+      <if test="legpersonchancnt != null">
+        LegPersonChanCnt,
+      </if>
+      <if test="regcapchanpct != null">
+        RegCapChanPct,
+      </if>
+      <if test="exelast != null">
+        ExeLast,
+      </if>
+      <if test="noticecntY != null">
+        NoticeCnt_Y,
+      </if>
+      <if test="notLaborcntY != null">
+        Not_LaborCnt_Y,
+      </if>
+      <if test="docLaborcntY != null">
+        Doc_LaborCnt_Y,
+      </if>
+      <if test="docFinancingcntB != null">
+        Doc_FinancingCnt_B,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="estatime != null">
+        #{estatime,jdbcType=INTEGER},
+      </if>
+      <if test="regcapital != null">
+        #{regcapital,jdbcType=VARCHAR},
+      </if>
+      <if test="managestate != null">
+        #{managestate,jdbcType=VARCHAR},
+      </if>
+      <if test="lostexecnt != null">
+        #{lostexecnt,jdbcType=INTEGER},
+      </if>
+      <if test="execnt != null">
+        #{execnt,jdbcType=INTEGER},
+      </if>
+      <if test="owntaxcnt != null">
+        #{owntaxcnt,jdbcType=INTEGER},
+      </if>
+      <if test="owntaxamtmax != null">
+        #{owntaxamtmax,jdbcType=VARCHAR},
+      </if>
+      <if test="owntaxamtnew != null">
+        #{owntaxamtnew,jdbcType=DOUBLE},
+      </if>
+      <if test="owntaxamtbal != null">
+        #{owntaxamtbal,jdbcType=DOUBLE},
+      </if>
+      <if test="legpersonchancnt != null">
+        #{legpersonchancnt,jdbcType=INTEGER},
+      </if>
+      <if test="regcapchanpct != null">
+        #{regcapchanpct,jdbcType=DOUBLE},
+      </if>
+      <if test="exelast != null">
+        #{exelast,jdbcType=INTEGER},
+      </if>
+      <if test="noticecntY != null">
+        #{noticecntY,jdbcType=INTEGER},
+      </if>
+      <if test="notLaborcntY != null">
+        #{notLaborcntY,jdbcType=INTEGER},
+      </if>
+      <if test="docLaborcntY != null">
+        #{docLaborcntY,jdbcType=INTEGER},
+      </if>
+      <if test="docFinancingcntB != null">
+        #{docFinancingcntB,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.daokoujinke.entity.OutEtlEnterpriseExample" resultType="java.lang.Long">
+    select count(*) from out_etl_enterprise
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update out_etl_enterprise
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.estatime != null">
+        EstaTime = #{record.estatime,jdbcType=INTEGER},
+      </if>
+      <if test="record.regcapital != null">
+        RegCapital = #{record.regcapital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managestate != null">
+        ManageState = #{record.managestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostexecnt != null">
+        LostExeCnt = #{record.lostexecnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.execnt != null">
+        ExeCnt = #{record.execnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.owntaxcnt != null">
+        OwnTaxCnt = #{record.owntaxcnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.owntaxamtmax != null">
+        OwnTaxAmtMax = #{record.owntaxamtmax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owntaxamtnew != null">
+        OwnTaxAmtNew = #{record.owntaxamtnew,jdbcType=DOUBLE},
+      </if>
+      <if test="record.owntaxamtbal != null">
+        OwnTaxAmtBal = #{record.owntaxamtbal,jdbcType=DOUBLE},
+      </if>
+      <if test="record.legpersonchancnt != null">
+        LegPersonChanCnt = #{record.legpersonchancnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.regcapchanpct != null">
+        RegCapChanPct = #{record.regcapchanpct,jdbcType=DOUBLE},
+      </if>
+      <if test="record.exelast != null">
+        ExeLast = #{record.exelast,jdbcType=INTEGER},
+      </if>
+      <if test="record.noticecntY != null">
+        NoticeCnt_Y = #{record.noticecntY,jdbcType=INTEGER},
+      </if>
+      <if test="record.notLaborcntY != null">
+        Not_LaborCnt_Y = #{record.notLaborcntY,jdbcType=INTEGER},
+      </if>
+      <if test="record.docLaborcntY != null">
+        Doc_LaborCnt_Y = #{record.docLaborcntY,jdbcType=INTEGER},
+      </if>
+      <if test="record.docFinancingcntB != null">
+        Doc_FinancingCnt_B = #{record.docFinancingcntB,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update out_etl_enterprise
+    set id = #{record.id,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      EstaTime = #{record.estatime,jdbcType=INTEGER},
+      RegCapital = #{record.regcapital,jdbcType=VARCHAR},
+      ManageState = #{record.managestate,jdbcType=VARCHAR},
+      LostExeCnt = #{record.lostexecnt,jdbcType=INTEGER},
+      ExeCnt = #{record.execnt,jdbcType=INTEGER},
+      OwnTaxCnt = #{record.owntaxcnt,jdbcType=INTEGER},
+      OwnTaxAmtMax = #{record.owntaxamtmax,jdbcType=VARCHAR},
+      OwnTaxAmtNew = #{record.owntaxamtnew,jdbcType=DOUBLE},
+      OwnTaxAmtBal = #{record.owntaxamtbal,jdbcType=DOUBLE},
+      LegPersonChanCnt = #{record.legpersonchancnt,jdbcType=INTEGER},
+      RegCapChanPct = #{record.regcapchanpct,jdbcType=DOUBLE},
+      ExeLast = #{record.exelast,jdbcType=INTEGER},
+      NoticeCnt_Y = #{record.noticecntY,jdbcType=INTEGER},
+      Not_LaborCnt_Y = #{record.notLaborcntY,jdbcType=INTEGER},
+      Doc_LaborCnt_Y = #{record.docLaborcntY,jdbcType=INTEGER},
+      Doc_FinancingCnt_B = #{record.docFinancingcntB,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daokoujinke.entity.OutEtlEnterprise">
+    update out_etl_enterprise
+    <set>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="estatime != null">
+        EstaTime = #{estatime,jdbcType=INTEGER},
+      </if>
+      <if test="regcapital != null">
+        RegCapital = #{regcapital,jdbcType=VARCHAR},
+      </if>
+      <if test="managestate != null">
+        ManageState = #{managestate,jdbcType=VARCHAR},
+      </if>
+      <if test="lostexecnt != null">
+        LostExeCnt = #{lostexecnt,jdbcType=INTEGER},
+      </if>
+      <if test="execnt != null">
+        ExeCnt = #{execnt,jdbcType=INTEGER},
+      </if>
+      <if test="owntaxcnt != null">
+        OwnTaxCnt = #{owntaxcnt,jdbcType=INTEGER},
+      </if>
+      <if test="owntaxamtmax != null">
+        OwnTaxAmtMax = #{owntaxamtmax,jdbcType=VARCHAR},
+      </if>
+      <if test="owntaxamtnew != null">
+        OwnTaxAmtNew = #{owntaxamtnew,jdbcType=DOUBLE},
+      </if>
+      <if test="owntaxamtbal != null">
+        OwnTaxAmtBal = #{owntaxamtbal,jdbcType=DOUBLE},
+      </if>
+      <if test="legpersonchancnt != null">
+        LegPersonChanCnt = #{legpersonchancnt,jdbcType=INTEGER},
+      </if>
+      <if test="regcapchanpct != null">
+        RegCapChanPct = #{regcapchanpct,jdbcType=DOUBLE},
+      </if>
+      <if test="exelast != null">
+        ExeLast = #{exelast,jdbcType=INTEGER},
+      </if>
+      <if test="noticecntY != null">
+        NoticeCnt_Y = #{noticecntY,jdbcType=INTEGER},
+      </if>
+      <if test="notLaborcntY != null">
+        Not_LaborCnt_Y = #{notLaborcntY,jdbcType=INTEGER},
+      </if>
+      <if test="docLaborcntY != null">
+        Doc_LaborCnt_Y = #{docLaborcntY,jdbcType=INTEGER},
+      </if>
+      <if test="docFinancingcntB != null">
+        Doc_FinancingCnt_B = #{docFinancingcntB,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daokoujinke.entity.OutEtlEnterprise">
+    update out_etl_enterprise
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      EstaTime = #{estatime,jdbcType=INTEGER},
+      RegCapital = #{regcapital,jdbcType=VARCHAR},
+      ManageState = #{managestate,jdbcType=VARCHAR},
+      LostExeCnt = #{lostexecnt,jdbcType=INTEGER},
+      ExeCnt = #{execnt,jdbcType=INTEGER},
+      OwnTaxCnt = #{owntaxcnt,jdbcType=INTEGER},
+      OwnTaxAmtMax = #{owntaxamtmax,jdbcType=VARCHAR},
+      OwnTaxAmtNew = #{owntaxamtnew,jdbcType=DOUBLE},
+      OwnTaxAmtBal = #{owntaxamtbal,jdbcType=DOUBLE},
+      LegPersonChanCnt = #{legpersonchancnt,jdbcType=INTEGER},
+      RegCapChanPct = #{regcapchanpct,jdbcType=DOUBLE},
+      ExeLast = #{exelast,jdbcType=INTEGER},
+      NoticeCnt_Y = #{noticecntY,jdbcType=INTEGER},
+      Not_LaborCnt_Y = #{notLaborcntY,jdbcType=INTEGER},
+      Doc_LaborCnt_Y = #{docLaborcntY,jdbcType=INTEGER},
+      Doc_FinancingCnt_B = #{docFinancingcntB,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

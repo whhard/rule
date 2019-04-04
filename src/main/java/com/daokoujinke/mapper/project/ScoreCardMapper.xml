@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daokoujinke.mapper.project.ScoreCardMapper">
+  <select id="queryByCompanyName" resultType="com.daokoujinke.entity.TScorecardBase">
+    select id,company_name companyName,person_name personName,id_number idNumber,phone,score,
+    create_time createTime,update_time updateTime
+    from t_scorecard_base a
+    where not exists (select * from t_scorecard_base b where a.company_name = b.company_name and a.create_time &lt; create_time )
+    and company_name = #{companyName}
+  </select>
+</mapper>

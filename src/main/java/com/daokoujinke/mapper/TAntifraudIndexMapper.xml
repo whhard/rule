@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daokoujinke.mapper.TAntifraudIndexMapper">
+  <resultMap id="BaseResultMap" type="com.daokoujinke.entity.TAntifraudIndex">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="idcode" jdbcType="VARCHAR" property="idcode" />
+    <result column="PlatCnt_7D_leader" jdbcType="INTEGER" property="platcnt7dLeader" />
+    <result column="PlatCnt_1M_leader" jdbcType="INTEGER" property="platcnt1mLeader" />
+    <result column="PlatCnt_3M_leader" jdbcType="INTEGER" property="platcnt3mLeader" />
+    <result column="PlatCnt_Bank_7D_leader" jdbcType="INTEGER" property="platcntBank7dLeader" />
+    <result column="PlatCnt_Bank_1M_leader" jdbcType="INTEGER" property="platcntBank1mLeader" />
+    <result column="PlatCnt_Bank_3M_leader" jdbcType="INTEGER" property="platcntBank3mLeader" />
+    <result column="PlatCnt_CSFin_7D_leader" jdbcType="INTEGER" property="platcntCsfin7dLeader" />
+    <result column="PlatCnt_CSFin_1M_leader" jdbcType="INTEGER" property="platcntCsfin1mLeader" />
+    <result column="PlatCnt_CSFin_3M_leader" jdbcType="INTEGER" property="platcntCsfin3mLeader" />
+    <result column="PlatCnt_P2P_7D_leader" jdbcType="INTEGER" property="platcntP2p7dLeader" />
+    <result column="PlatCnt_P2P_1M_leader" jdbcType="INTEGER" property="platcntP2p1mLeader" />
+    <result column="PlatCnt_P2P_3M_leader" jdbcType="INTEGER" property="platcntP2p3mLeader" />
+    <result column="DueCnt_ID_leader" jdbcType="INTEGER" property="duecntIdLeader" />
+    <result column="DueCnt_Te_leader" jdbcType="INTEGER" property="duecntTeLeader" />
+    <result column="DueCnt_IDTe_leader" jdbcType="INTEGER" property="duecntIdteLeader" />
+    <result column="DueAmt_ID_leader" jdbcType="INTEGER" property="dueamtIdLeader" />
+    <result column="DueAmt_Te_leader" jdbcType="INTEGER" property="dueamtTeLeader" />
+    <result column="DueAmt_IDTe_leader" jdbcType="INTEGER" property="dueamtIdteLeader" />
+    <result column="DueDay_ID_leader" jdbcType="INTEGER" property="duedayIdLeader" />
+    <result column="DueDay_Te_leader" jdbcType="INTEGER" property="duedayTeLeader" />
+    <result column="DueDay_IDTe_leader" jdbcType="INTEGER" property="duedayIdteLeader" />
+    <result column="TeToIDCnt_3M_leader" jdbcType="INTEGER" property="tetoidcnt3mLeader" />
+    <result column="IDToTeCnt_3M_leader" jdbcType="INTEGER" property="idtotecnt3mLeader" />
+    <result column="DisCrdtCnt_IDName_leader" jdbcType="INTEGER" property="discrdtcntIdnameLeader" />
+    <result column="ExeCnt_IDName_leader" jdbcType="INTEGER" property="execntIdnameLeader" />
+    <result column="SetCnt_IDName_leader" jdbcType="INTEGER" property="setcntIdnameLeader" />
+    <result column="DueCnt_IDName_leader" jdbcType="INTEGER" property="duecntIdnameLeader" />
+    <result column="HighRisk_leader" jdbcType="INTEGER" property="highriskLeader" />
+    <result column="MidRisk_leader" jdbcType="INTEGER" property="midriskLeader" />
+    <result column="LowRisk_leader" jdbcType="INTEGER" property="lowriskLeader" />
+    <result column="final_score_leader" jdbcType="INTEGER" property="finalScoreLeader" />
+    <result column="antifraud_score_leader" jdbcType="INTEGER" property="antifraudScoreLeader" />
+    <result column="final_decision_leader" jdbcType="VARCHAR" property="finalDecisionLeader" />
+    <result column="DisCrdtCnt_ID_leader" jdbcType="INTEGER" property="discrdtcntIdLeader" />
+    <result column="CriWantedCnt_ID_leader" jdbcType="INTEGER" property="criwantedcntIdLeader" />
+    <result column="ExeCnt_ID_leader" jdbcType="INTEGER" property="execntIdLeader" />
+    <result column="SetCnt_ID_leader" jdbcType="INTEGER" property="setcntIdLeader" />
+    <result column="OweTaxCnt_ID_leader" jdbcType="INTEGER" property="owetaxcntIdLeader" />
+    <result column="DuePayCnt_ID_leader" jdbcType="INTEGER" property="duepaycntIdLeader" />
+    <result column="LPOweTaxCnt_ID_leader" jdbcType="INTEGER" property="lpowetaxcntIdLeader" />
+    <result column="LPDueCnt_ID_leader" jdbcType="INTEGER" property="lpduecntIdLeader" />
+    <result column="DuePayCnt_TE_leader" jdbcType="INTEGER" property="duepaycntTeLeader" />
+    <result column="ExeAmt_ID_leader" jdbcType="INTEGER" property="exeamtIdLeader" />
+    <result column="SetAmt_ID_leader" jdbcType="INTEGER" property="setamtIdLeader" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, cust_name, idcode, PlatCnt_7D_leader, PlatCnt_1M_leader, PlatCnt_3M_leader, 
+    PlatCnt_Bank_7D_leader, PlatCnt_Bank_1M_leader, PlatCnt_Bank_3M_leader, PlatCnt_CSFin_7D_leader, 
+    PlatCnt_CSFin_1M_leader, PlatCnt_CSFin_3M_leader, PlatCnt_P2P_7D_leader, PlatCnt_P2P_1M_leader, 
+    PlatCnt_P2P_3M_leader, DueCnt_ID_leader, DueCnt_Te_leader, DueCnt_IDTe_leader, DueAmt_ID_leader, 
+    DueAmt_Te_leader, DueAmt_IDTe_leader, DueDay_ID_leader, DueDay_Te_leader, DueDay_IDTe_leader, 
+    TeToIDCnt_3M_leader, IDToTeCnt_3M_leader, DisCrdtCnt_IDName_leader, ExeCnt_IDName_leader, 
+    SetCnt_IDName_leader, DueCnt_IDName_leader, HighRisk_leader, MidRisk_leader, LowRisk_leader, 
+    final_score_leader, antifraud_score_leader, final_decision_leader, DisCrdtCnt_ID_leader, 
+    CriWantedCnt_ID_leader, ExeCnt_ID_leader, SetCnt_ID_leader, OweTaxCnt_ID_leader, 
+    DuePayCnt_ID_leader, LPOweTaxCnt_ID_leader, LPDueCnt_ID_leader, DuePayCnt_TE_leader, 
+    ExeAmt_ID_leader, SetAmt_ID_leader
+  </sql>
+  <select id="selectByExample" parameterType="com.daokoujinke.entity.TAntifraudIndexExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_antifraud_index
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_antifraud_index
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_antifraud_index
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daokoujinke.entity.TAntifraudIndex">
+    insert into t_antifraud_index (id, name, cust_name, 
+      idcode, PlatCnt_7D_leader, PlatCnt_1M_leader, 
+      PlatCnt_3M_leader, PlatCnt_Bank_7D_leader, PlatCnt_Bank_1M_leader, 
+      PlatCnt_Bank_3M_leader, PlatCnt_CSFin_7D_leader, 
+      PlatCnt_CSFin_1M_leader, PlatCnt_CSFin_3M_leader, 
+      PlatCnt_P2P_7D_leader, PlatCnt_P2P_1M_leader, 
+      PlatCnt_P2P_3M_leader, DueCnt_ID_leader, DueCnt_Te_leader, 
+      DueCnt_IDTe_leader, DueAmt_ID_leader, DueAmt_Te_leader, 
+      DueAmt_IDTe_leader, DueDay_ID_leader, DueDay_Te_leader, 
+      DueDay_IDTe_leader, TeToIDCnt_3M_leader, IDToTeCnt_3M_leader, 
+      DisCrdtCnt_IDName_leader, ExeCnt_IDName_leader, 
+      SetCnt_IDName_leader, DueCnt_IDName_leader, 
+      HighRisk_leader, MidRisk_leader, LowRisk_leader, 
+      final_score_leader, antifraud_score_leader, 
+      final_decision_leader, DisCrdtCnt_ID_leader, 
+      CriWantedCnt_ID_leader, ExeCnt_ID_leader, SetCnt_ID_leader, 
+      OweTaxCnt_ID_leader, DuePayCnt_ID_leader, LPOweTaxCnt_ID_leader, 
+      LPDueCnt_ID_leader, DuePayCnt_TE_leader, ExeAmt_ID_leader, 
+      SetAmt_ID_leader)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
+      #{idcode,jdbcType=VARCHAR}, #{platcnt7dLeader,jdbcType=INTEGER}, #{platcnt1mLeader,jdbcType=INTEGER}, 
+      #{platcnt3mLeader,jdbcType=INTEGER}, #{platcntBank7dLeader,jdbcType=INTEGER}, #{platcntBank1mLeader,jdbcType=INTEGER}, 
+      #{platcntBank3mLeader,jdbcType=INTEGER}, #{platcntCsfin7dLeader,jdbcType=INTEGER}, 
+      #{platcntCsfin1mLeader,jdbcType=INTEGER}, #{platcntCsfin3mLeader,jdbcType=INTEGER}, 
+      #{platcntP2p7dLeader,jdbcType=INTEGER}, #{platcntP2p1mLeader,jdbcType=INTEGER}, 
+      #{platcntP2p3mLeader,jdbcType=INTEGER}, #{duecntIdLeader,jdbcType=INTEGER}, #{duecntTeLeader,jdbcType=INTEGER}, 
+      #{duecntIdteLeader,jdbcType=INTEGER}, #{dueamtIdLeader,jdbcType=INTEGER}, #{dueamtTeLeader,jdbcType=INTEGER}, 
+      #{dueamtIdteLeader,jdbcType=INTEGER}, #{duedayIdLeader,jdbcType=INTEGER}, #{duedayTeLeader,jdbcType=INTEGER}, 
+      #{duedayIdteLeader,jdbcType=INTEGER}, #{tetoidcnt3mLeader,jdbcType=INTEGER}, #{idtotecnt3mLeader,jdbcType=INTEGER}, 
+      #{discrdtcntIdnameLeader,jdbcType=INTEGER}, #{execntIdnameLeader,jdbcType=INTEGER}, 
+      #{setcntIdnameLeader,jdbcType=INTEGER}, #{duecntIdnameLeader,jdbcType=INTEGER}, 
+      #{highriskLeader,jdbcType=INTEGER}, #{midriskLeader,jdbcType=INTEGER}, #{lowriskLeader,jdbcType=INTEGER}, 
+      #{finalScoreLeader,jdbcType=INTEGER}, #{antifraudScoreLeader,jdbcType=INTEGER}, 
+      #{finalDecisionLeader,jdbcType=VARCHAR}, #{discrdtcntIdLeader,jdbcType=INTEGER}, 
+      #{criwantedcntIdLeader,jdbcType=INTEGER}, #{execntIdLeader,jdbcType=INTEGER}, #{setcntIdLeader,jdbcType=INTEGER}, 
+      #{owetaxcntIdLeader,jdbcType=INTEGER}, #{duepaycntIdLeader,jdbcType=INTEGER}, #{lpowetaxcntIdLeader,jdbcType=INTEGER}, 
+      #{lpduecntIdLeader,jdbcType=INTEGER}, #{duepaycntTeLeader,jdbcType=INTEGER}, #{exeamtIdLeader,jdbcType=INTEGER}, 
+      #{setamtIdLeader,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daokoujinke.entity.TAntifraudIndex">
+    insert into t_antifraud_index
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if>
+      <if test="idcode != null">
+        idcode,
+      </if>
+      <if test="platcnt7dLeader != null">
+        PlatCnt_7D_leader,
+      </if>
+      <if test="platcnt1mLeader != null">
+        PlatCnt_1M_leader,
+      </if>
+      <if test="platcnt3mLeader != null">
+        PlatCnt_3M_leader,
+      </if>
+      <if test="platcntBank7dLeader != null">
+        PlatCnt_Bank_7D_leader,
+      </if>
+      <if test="platcntBank1mLeader != null">
+        PlatCnt_Bank_1M_leader,
+      </if>
+      <if test="platcntBank3mLeader != null">
+        PlatCnt_Bank_3M_leader,
+      </if>
+      <if test="platcntCsfin7dLeader != null">
+        PlatCnt_CSFin_7D_leader,
+      </if>
+      <if test="platcntCsfin1mLeader != null">
+        PlatCnt_CSFin_1M_leader,
+      </if>
+      <if test="platcntCsfin3mLeader != null">
+        PlatCnt_CSFin_3M_leader,
+      </if>
+      <if test="platcntP2p7dLeader != null">
+        PlatCnt_P2P_7D_leader,
+      </if>
+      <if test="platcntP2p1mLeader != null">
+        PlatCnt_P2P_1M_leader,
+      </if>
+      <if test="platcntP2p3mLeader != null">
+        PlatCnt_P2P_3M_leader,
+      </if>
+      <if test="duecntIdLeader != null">
+        DueCnt_ID_leader,
+      </if>
+      <if test="duecntTeLeader != null">
+        DueCnt_Te_leader,
+      </if>
+      <if test="duecntIdteLeader != null">
+        DueCnt_IDTe_leader,
+      </if>
+      <if test="dueamtIdLeader != null">
+        DueAmt_ID_leader,
+      </if>
+      <if test="dueamtTeLeader != null">
+        DueAmt_Te_leader,
+      </if>
+      <if test="dueamtIdteLeader != null">
+        DueAmt_IDTe_leader,
+      </if>
+      <if test="duedayIdLeader != null">
+        DueDay_ID_leader,
+      </if>
+      <if test="duedayTeLeader != null">
+        DueDay_Te_leader,
+      </if>
+      <if test="duedayIdteLeader != null">
+        DueDay_IDTe_leader,
+      </if>
+      <if test="tetoidcnt3mLeader != null">
+        TeToIDCnt_3M_leader,
+      </if>
+      <if test="idtotecnt3mLeader != null">
+        IDToTeCnt_3M_leader,
+      </if>
+      <if test="discrdtcntIdnameLeader != null">
+        DisCrdtCnt_IDName_leader,
+      </if>
+      <if test="execntIdnameLeader != null">
+        ExeCnt_IDName_leader,
+      </if>
+      <if test="setcntIdnameLeader != null">
+        SetCnt_IDName_leader,
+      </if>
+      <if test="duecntIdnameLeader != null">
+        DueCnt_IDName_leader,
+      </if>
+      <if test="highriskLeader != null">
+        HighRisk_leader,
+      </if>
+      <if test="midriskLeader != null">
+        MidRisk_leader,
+      </if>
+      <if test="lowriskLeader != null">
+        LowRisk_leader,
+      </if>
+      <if test="finalScoreLeader != null">
+        final_score_leader,
+      </if>
+      <if test="antifraudScoreLeader != null">
+        antifraud_score_leader,
+      </if>
+      <if test="finalDecisionLeader != null">
+        final_decision_leader,
+      </if>
+      <if test="discrdtcntIdLeader != null">
+        DisCrdtCnt_ID_leader,
+      </if>
+      <if test="criwantedcntIdLeader != null">
+        CriWantedCnt_ID_leader,
+      </if>
+      <if test="execntIdLeader != null">
+        ExeCnt_ID_leader,
+      </if>
+      <if test="setcntIdLeader != null">
+        SetCnt_ID_leader,
+      </if>
+      <if test="owetaxcntIdLeader != null">
+        OweTaxCnt_ID_leader,
+      </if>
+      <if test="duepaycntIdLeader != null">
+        DuePayCnt_ID_leader,
+      </if>
+      <if test="lpowetaxcntIdLeader != null">
+        LPOweTaxCnt_ID_leader,
+      </if>
+      <if test="lpduecntIdLeader != null">
+        LPDueCnt_ID_leader,
+      </if>
+      <if test="duepaycntTeLeader != null">
+        DuePayCnt_TE_leader,
+      </if>
+      <if test="exeamtIdLeader != null">
+        ExeAmt_ID_leader,
+      </if>
+      <if test="setamtIdLeader != null">
+        SetAmt_ID_leader,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcode != null">
+        #{idcode,jdbcType=VARCHAR},
+      </if>
+      <if test="platcnt7dLeader != null">
+        #{platcnt7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcnt1mLeader != null">
+        #{platcnt1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcnt3mLeader != null">
+        #{platcnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntBank7dLeader != null">
+        #{platcntBank7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntBank1mLeader != null">
+        #{platcntBank1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntBank3mLeader != null">
+        #{platcntBank3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntCsfin7dLeader != null">
+        #{platcntCsfin7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntCsfin1mLeader != null">
+        #{platcntCsfin1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntCsfin3mLeader != null">
+        #{platcntCsfin3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntP2p7dLeader != null">
+        #{platcntP2p7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntP2p1mLeader != null">
+        #{platcntP2p1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntP2p3mLeader != null">
+        #{platcntP2p3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntIdLeader != null">
+        #{duecntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntTeLeader != null">
+        #{duecntTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntIdteLeader != null">
+        #{duecntIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="dueamtIdLeader != null">
+        #{dueamtIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="dueamtTeLeader != null">
+        #{dueamtTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="dueamtIdteLeader != null">
+        #{dueamtIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duedayIdLeader != null">
+        #{duedayIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duedayTeLeader != null">
+        #{duedayTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duedayIdteLeader != null">
+        #{duedayIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="tetoidcnt3mLeader != null">
+        #{tetoidcnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="idtotecnt3mLeader != null">
+        #{idtotecnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="discrdtcntIdnameLeader != null">
+        #{discrdtcntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="execntIdnameLeader != null">
+        #{execntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="setcntIdnameLeader != null">
+        #{setcntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntIdnameLeader != null">
+        #{duecntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="highriskLeader != null">
+        #{highriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="midriskLeader != null">
+        #{midriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="lowriskLeader != null">
+        #{lowriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="finalScoreLeader != null">
+        #{finalScoreLeader,jdbcType=INTEGER},
+      </if>
+      <if test="antifraudScoreLeader != null">
+        #{antifraudScoreLeader,jdbcType=INTEGER},
+      </if>
+      <if test="finalDecisionLeader != null">
+        #{finalDecisionLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="discrdtcntIdLeader != null">
+        #{discrdtcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="criwantedcntIdLeader != null">
+        #{criwantedcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="execntIdLeader != null">
+        #{execntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="setcntIdLeader != null">
+        #{setcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="owetaxcntIdLeader != null">
+        #{owetaxcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duepaycntIdLeader != null">
+        #{duepaycntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="lpowetaxcntIdLeader != null">
+        #{lpowetaxcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="lpduecntIdLeader != null">
+        #{lpduecntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duepaycntTeLeader != null">
+        #{duepaycntTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="exeamtIdLeader != null">
+        #{exeamtIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="setamtIdLeader != null">
+        #{setamtIdLeader,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.daokoujinke.entity.TAntifraudIndexExample" resultType="java.lang.Long">
+    select count(*) from t_antifraud_index
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_antifraud_index
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custName != null">
+        cust_name = #{record.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcode != null">
+        idcode = #{record.idcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platcnt7dLeader != null">
+        PlatCnt_7D_leader = #{record.platcnt7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcnt1mLeader != null">
+        PlatCnt_1M_leader = #{record.platcnt1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcnt3mLeader != null">
+        PlatCnt_3M_leader = #{record.platcnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntBank7dLeader != null">
+        PlatCnt_Bank_7D_leader = #{record.platcntBank7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntBank1mLeader != null">
+        PlatCnt_Bank_1M_leader = #{record.platcntBank1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntBank3mLeader != null">
+        PlatCnt_Bank_3M_leader = #{record.platcntBank3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntCsfin7dLeader != null">
+        PlatCnt_CSFin_7D_leader = #{record.platcntCsfin7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntCsfin1mLeader != null">
+        PlatCnt_CSFin_1M_leader = #{record.platcntCsfin1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntCsfin3mLeader != null">
+        PlatCnt_CSFin_3M_leader = #{record.platcntCsfin3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntP2p7dLeader != null">
+        PlatCnt_P2P_7D_leader = #{record.platcntP2p7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntP2p1mLeader != null">
+        PlatCnt_P2P_1M_leader = #{record.platcntP2p1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.platcntP2p3mLeader != null">
+        PlatCnt_P2P_3M_leader = #{record.platcntP2p3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duecntIdLeader != null">
+        DueCnt_ID_leader = #{record.duecntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duecntTeLeader != null">
+        DueCnt_Te_leader = #{record.duecntTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duecntIdteLeader != null">
+        DueCnt_IDTe_leader = #{record.duecntIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.dueamtIdLeader != null">
+        DueAmt_ID_leader = #{record.dueamtIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.dueamtTeLeader != null">
+        DueAmt_Te_leader = #{record.dueamtTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.dueamtIdteLeader != null">
+        DueAmt_IDTe_leader = #{record.dueamtIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duedayIdLeader != null">
+        DueDay_ID_leader = #{record.duedayIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duedayTeLeader != null">
+        DueDay_Te_leader = #{record.duedayTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duedayIdteLeader != null">
+        DueDay_IDTe_leader = #{record.duedayIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.tetoidcnt3mLeader != null">
+        TeToIDCnt_3M_leader = #{record.tetoidcnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.idtotecnt3mLeader != null">
+        IDToTeCnt_3M_leader = #{record.idtotecnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.discrdtcntIdnameLeader != null">
+        DisCrdtCnt_IDName_leader = #{record.discrdtcntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.execntIdnameLeader != null">
+        ExeCnt_IDName_leader = #{record.execntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.setcntIdnameLeader != null">
+        SetCnt_IDName_leader = #{record.setcntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duecntIdnameLeader != null">
+        DueCnt_IDName_leader = #{record.duecntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.highriskLeader != null">
+        HighRisk_leader = #{record.highriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.midriskLeader != null">
+        MidRisk_leader = #{record.midriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.lowriskLeader != null">
+        LowRisk_leader = #{record.lowriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.finalScoreLeader != null">
+        final_score_leader = #{record.finalScoreLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.antifraudScoreLeader != null">
+        antifraud_score_leader = #{record.antifraudScoreLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.finalDecisionLeader != null">
+        final_decision_leader = #{record.finalDecisionLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discrdtcntIdLeader != null">
+        DisCrdtCnt_ID_leader = #{record.discrdtcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.criwantedcntIdLeader != null">
+        CriWantedCnt_ID_leader = #{record.criwantedcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.execntIdLeader != null">
+        ExeCnt_ID_leader = #{record.execntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.setcntIdLeader != null">
+        SetCnt_ID_leader = #{record.setcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.owetaxcntIdLeader != null">
+        OweTaxCnt_ID_leader = #{record.owetaxcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duepaycntIdLeader != null">
+        DuePayCnt_ID_leader = #{record.duepaycntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.lpowetaxcntIdLeader != null">
+        LPOweTaxCnt_ID_leader = #{record.lpowetaxcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.lpduecntIdLeader != null">
+        LPDueCnt_ID_leader = #{record.lpduecntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.duepaycntTeLeader != null">
+        DuePayCnt_TE_leader = #{record.duepaycntTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.exeamtIdLeader != null">
+        ExeAmt_ID_leader = #{record.exeamtIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="record.setamtIdLeader != null">
+        SetAmt_ID_leader = #{record.setamtIdLeader,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_antifraud_index
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      cust_name = #{record.custName,jdbcType=VARCHAR},
+      idcode = #{record.idcode,jdbcType=VARCHAR},
+      PlatCnt_7D_leader = #{record.platcnt7dLeader,jdbcType=INTEGER},
+      PlatCnt_1M_leader = #{record.platcnt1mLeader,jdbcType=INTEGER},
+      PlatCnt_3M_leader = #{record.platcnt3mLeader,jdbcType=INTEGER},
+      PlatCnt_Bank_7D_leader = #{record.platcntBank7dLeader,jdbcType=INTEGER},
+      PlatCnt_Bank_1M_leader = #{record.platcntBank1mLeader,jdbcType=INTEGER},
+      PlatCnt_Bank_3M_leader = #{record.platcntBank3mLeader,jdbcType=INTEGER},
+      PlatCnt_CSFin_7D_leader = #{record.platcntCsfin7dLeader,jdbcType=INTEGER},
+      PlatCnt_CSFin_1M_leader = #{record.platcntCsfin1mLeader,jdbcType=INTEGER},
+      PlatCnt_CSFin_3M_leader = #{record.platcntCsfin3mLeader,jdbcType=INTEGER},
+      PlatCnt_P2P_7D_leader = #{record.platcntP2p7dLeader,jdbcType=INTEGER},
+      PlatCnt_P2P_1M_leader = #{record.platcntP2p1mLeader,jdbcType=INTEGER},
+      PlatCnt_P2P_3M_leader = #{record.platcntP2p3mLeader,jdbcType=INTEGER},
+      DueCnt_ID_leader = #{record.duecntIdLeader,jdbcType=INTEGER},
+      DueCnt_Te_leader = #{record.duecntTeLeader,jdbcType=INTEGER},
+      DueCnt_IDTe_leader = #{record.duecntIdteLeader,jdbcType=INTEGER},
+      DueAmt_ID_leader = #{record.dueamtIdLeader,jdbcType=INTEGER},
+      DueAmt_Te_leader = #{record.dueamtTeLeader,jdbcType=INTEGER},
+      DueAmt_IDTe_leader = #{record.dueamtIdteLeader,jdbcType=INTEGER},
+      DueDay_ID_leader = #{record.duedayIdLeader,jdbcType=INTEGER},
+      DueDay_Te_leader = #{record.duedayTeLeader,jdbcType=INTEGER},
+      DueDay_IDTe_leader = #{record.duedayIdteLeader,jdbcType=INTEGER},
+      TeToIDCnt_3M_leader = #{record.tetoidcnt3mLeader,jdbcType=INTEGER},
+      IDToTeCnt_3M_leader = #{record.idtotecnt3mLeader,jdbcType=INTEGER},
+      DisCrdtCnt_IDName_leader = #{record.discrdtcntIdnameLeader,jdbcType=INTEGER},
+      ExeCnt_IDName_leader = #{record.execntIdnameLeader,jdbcType=INTEGER},
+      SetCnt_IDName_leader = #{record.setcntIdnameLeader,jdbcType=INTEGER},
+      DueCnt_IDName_leader = #{record.duecntIdnameLeader,jdbcType=INTEGER},
+      HighRisk_leader = #{record.highriskLeader,jdbcType=INTEGER},
+      MidRisk_leader = #{record.midriskLeader,jdbcType=INTEGER},
+      LowRisk_leader = #{record.lowriskLeader,jdbcType=INTEGER},
+      final_score_leader = #{record.finalScoreLeader,jdbcType=INTEGER},
+      antifraud_score_leader = #{record.antifraudScoreLeader,jdbcType=INTEGER},
+      final_decision_leader = #{record.finalDecisionLeader,jdbcType=VARCHAR},
+      DisCrdtCnt_ID_leader = #{record.discrdtcntIdLeader,jdbcType=INTEGER},
+      CriWantedCnt_ID_leader = #{record.criwantedcntIdLeader,jdbcType=INTEGER},
+      ExeCnt_ID_leader = #{record.execntIdLeader,jdbcType=INTEGER},
+      SetCnt_ID_leader = #{record.setcntIdLeader,jdbcType=INTEGER},
+      OweTaxCnt_ID_leader = #{record.owetaxcntIdLeader,jdbcType=INTEGER},
+      DuePayCnt_ID_leader = #{record.duepaycntIdLeader,jdbcType=INTEGER},
+      LPOweTaxCnt_ID_leader = #{record.lpowetaxcntIdLeader,jdbcType=INTEGER},
+      LPDueCnt_ID_leader = #{record.lpduecntIdLeader,jdbcType=INTEGER},
+      DuePayCnt_TE_leader = #{record.duepaycntTeLeader,jdbcType=INTEGER},
+      ExeAmt_ID_leader = #{record.exeamtIdLeader,jdbcType=INTEGER},
+      SetAmt_ID_leader = #{record.setamtIdLeader,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daokoujinke.entity.TAntifraudIndex">
+    update t_antifraud_index
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcode != null">
+        idcode = #{idcode,jdbcType=VARCHAR},
+      </if>
+      <if test="platcnt7dLeader != null">
+        PlatCnt_7D_leader = #{platcnt7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcnt1mLeader != null">
+        PlatCnt_1M_leader = #{platcnt1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcnt3mLeader != null">
+        PlatCnt_3M_leader = #{platcnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntBank7dLeader != null">
+        PlatCnt_Bank_7D_leader = #{platcntBank7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntBank1mLeader != null">
+        PlatCnt_Bank_1M_leader = #{platcntBank1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntBank3mLeader != null">
+        PlatCnt_Bank_3M_leader = #{platcntBank3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntCsfin7dLeader != null">
+        PlatCnt_CSFin_7D_leader = #{platcntCsfin7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntCsfin1mLeader != null">
+        PlatCnt_CSFin_1M_leader = #{platcntCsfin1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntCsfin3mLeader != null">
+        PlatCnt_CSFin_3M_leader = #{platcntCsfin3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntP2p7dLeader != null">
+        PlatCnt_P2P_7D_leader = #{platcntP2p7dLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntP2p1mLeader != null">
+        PlatCnt_P2P_1M_leader = #{platcntP2p1mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="platcntP2p3mLeader != null">
+        PlatCnt_P2P_3M_leader = #{platcntP2p3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntIdLeader != null">
+        DueCnt_ID_leader = #{duecntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntTeLeader != null">
+        DueCnt_Te_leader = #{duecntTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntIdteLeader != null">
+        DueCnt_IDTe_leader = #{duecntIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="dueamtIdLeader != null">
+        DueAmt_ID_leader = #{dueamtIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="dueamtTeLeader != null">
+        DueAmt_Te_leader = #{dueamtTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="dueamtIdteLeader != null">
+        DueAmt_IDTe_leader = #{dueamtIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duedayIdLeader != null">
+        DueDay_ID_leader = #{duedayIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duedayTeLeader != null">
+        DueDay_Te_leader = #{duedayTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duedayIdteLeader != null">
+        DueDay_IDTe_leader = #{duedayIdteLeader,jdbcType=INTEGER},
+      </if>
+      <if test="tetoidcnt3mLeader != null">
+        TeToIDCnt_3M_leader = #{tetoidcnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="idtotecnt3mLeader != null">
+        IDToTeCnt_3M_leader = #{idtotecnt3mLeader,jdbcType=INTEGER},
+      </if>
+      <if test="discrdtcntIdnameLeader != null">
+        DisCrdtCnt_IDName_leader = #{discrdtcntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="execntIdnameLeader != null">
+        ExeCnt_IDName_leader = #{execntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="setcntIdnameLeader != null">
+        SetCnt_IDName_leader = #{setcntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duecntIdnameLeader != null">
+        DueCnt_IDName_leader = #{duecntIdnameLeader,jdbcType=INTEGER},
+      </if>
+      <if test="highriskLeader != null">
+        HighRisk_leader = #{highriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="midriskLeader != null">
+        MidRisk_leader = #{midriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="lowriskLeader != null">
+        LowRisk_leader = #{lowriskLeader,jdbcType=INTEGER},
+      </if>
+      <if test="finalScoreLeader != null">
+        final_score_leader = #{finalScoreLeader,jdbcType=INTEGER},
+      </if>
+      <if test="antifraudScoreLeader != null">
+        antifraud_score_leader = #{antifraudScoreLeader,jdbcType=INTEGER},
+      </if>
+      <if test="finalDecisionLeader != null">
+        final_decision_leader = #{finalDecisionLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="discrdtcntIdLeader != null">
+        DisCrdtCnt_ID_leader = #{discrdtcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="criwantedcntIdLeader != null">
+        CriWantedCnt_ID_leader = #{criwantedcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="execntIdLeader != null">
+        ExeCnt_ID_leader = #{execntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="setcntIdLeader != null">
+        SetCnt_ID_leader = #{setcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="owetaxcntIdLeader != null">
+        OweTaxCnt_ID_leader = #{owetaxcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duepaycntIdLeader != null">
+        DuePayCnt_ID_leader = #{duepaycntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="lpowetaxcntIdLeader != null">
+        LPOweTaxCnt_ID_leader = #{lpowetaxcntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="lpduecntIdLeader != null">
+        LPDueCnt_ID_leader = #{lpduecntIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="duepaycntTeLeader != null">
+        DuePayCnt_TE_leader = #{duepaycntTeLeader,jdbcType=INTEGER},
+      </if>
+      <if test="exeamtIdLeader != null">
+        ExeAmt_ID_leader = #{exeamtIdLeader,jdbcType=INTEGER},
+      </if>
+      <if test="setamtIdLeader != null">
+        SetAmt_ID_leader = #{setamtIdLeader,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daokoujinke.entity.TAntifraudIndex">
+    update t_antifraud_index
+    set name = #{name,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      idcode = #{idcode,jdbcType=VARCHAR},
+      PlatCnt_7D_leader = #{platcnt7dLeader,jdbcType=INTEGER},
+      PlatCnt_1M_leader = #{platcnt1mLeader,jdbcType=INTEGER},
+      PlatCnt_3M_leader = #{platcnt3mLeader,jdbcType=INTEGER},
+      PlatCnt_Bank_7D_leader = #{platcntBank7dLeader,jdbcType=INTEGER},
+      PlatCnt_Bank_1M_leader = #{platcntBank1mLeader,jdbcType=INTEGER},
+      PlatCnt_Bank_3M_leader = #{platcntBank3mLeader,jdbcType=INTEGER},
+      PlatCnt_CSFin_7D_leader = #{platcntCsfin7dLeader,jdbcType=INTEGER},
+      PlatCnt_CSFin_1M_leader = #{platcntCsfin1mLeader,jdbcType=INTEGER},
+      PlatCnt_CSFin_3M_leader = #{platcntCsfin3mLeader,jdbcType=INTEGER},
+      PlatCnt_P2P_7D_leader = #{platcntP2p7dLeader,jdbcType=INTEGER},
+      PlatCnt_P2P_1M_leader = #{platcntP2p1mLeader,jdbcType=INTEGER},
+      PlatCnt_P2P_3M_leader = #{platcntP2p3mLeader,jdbcType=INTEGER},
+      DueCnt_ID_leader = #{duecntIdLeader,jdbcType=INTEGER},
+      DueCnt_Te_leader = #{duecntTeLeader,jdbcType=INTEGER},
+      DueCnt_IDTe_leader = #{duecntIdteLeader,jdbcType=INTEGER},
+      DueAmt_ID_leader = #{dueamtIdLeader,jdbcType=INTEGER},
+      DueAmt_Te_leader = #{dueamtTeLeader,jdbcType=INTEGER},
+      DueAmt_IDTe_leader = #{dueamtIdteLeader,jdbcType=INTEGER},
+      DueDay_ID_leader = #{duedayIdLeader,jdbcType=INTEGER},
+      DueDay_Te_leader = #{duedayTeLeader,jdbcType=INTEGER},
+      DueDay_IDTe_leader = #{duedayIdteLeader,jdbcType=INTEGER},
+      TeToIDCnt_3M_leader = #{tetoidcnt3mLeader,jdbcType=INTEGER},
+      IDToTeCnt_3M_leader = #{idtotecnt3mLeader,jdbcType=INTEGER},
+      DisCrdtCnt_IDName_leader = #{discrdtcntIdnameLeader,jdbcType=INTEGER},
+      ExeCnt_IDName_leader = #{execntIdnameLeader,jdbcType=INTEGER},
+      SetCnt_IDName_leader = #{setcntIdnameLeader,jdbcType=INTEGER},
+      DueCnt_IDName_leader = #{duecntIdnameLeader,jdbcType=INTEGER},
+      HighRisk_leader = #{highriskLeader,jdbcType=INTEGER},
+      MidRisk_leader = #{midriskLeader,jdbcType=INTEGER},
+      LowRisk_leader = #{lowriskLeader,jdbcType=INTEGER},
+      final_score_leader = #{finalScoreLeader,jdbcType=INTEGER},
+      antifraud_score_leader = #{antifraudScoreLeader,jdbcType=INTEGER},
+      final_decision_leader = #{finalDecisionLeader,jdbcType=VARCHAR},
+      DisCrdtCnt_ID_leader = #{discrdtcntIdLeader,jdbcType=INTEGER},
+      CriWantedCnt_ID_leader = #{criwantedcntIdLeader,jdbcType=INTEGER},
+      ExeCnt_ID_leader = #{execntIdLeader,jdbcType=INTEGER},
+      SetCnt_ID_leader = #{setcntIdLeader,jdbcType=INTEGER},
+      OweTaxCnt_ID_leader = #{owetaxcntIdLeader,jdbcType=INTEGER},
+      DuePayCnt_ID_leader = #{duepaycntIdLeader,jdbcType=INTEGER},
+      LPOweTaxCnt_ID_leader = #{lpowetaxcntIdLeader,jdbcType=INTEGER},
+      LPDueCnt_ID_leader = #{lpduecntIdLeader,jdbcType=INTEGER},
+      DuePayCnt_TE_leader = #{duepaycntTeLeader,jdbcType=INTEGER},
+      ExeAmt_ID_leader = #{exeamtIdLeader,jdbcType=INTEGER},
+      SetAmt_ID_leader = #{setamtIdLeader,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

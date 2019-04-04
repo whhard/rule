@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daokoujinke.mapper.project.RuleLogMapper">
+  <resultMap id="log" type="com.daokoujinke.entity.project.RuleLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
+    <result column="rule_type" jdbcType="INTEGER" property="ruleType"
+            typeHandler="com.daokoujinke.common.customEnum.IntEnumTypeHandler"/>
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="run_time" jdbcType="INTEGER" property="runTime" />
+    <result column="success_time" jdbcType="INTEGER" property="successTime" />
+    <result column="fail_time" jdbcType="INTEGER" property="failTime" />
+    <result column="hit_time" jdbcType="INTEGER" property="hitTime" />
+    <result column="totalCount" jdbcType="INTEGER" property="totalCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="logResp" type="com.daokoujinke.vo.response.RuleLogResp">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
+    <result column="rule_type" jdbcType="VARCHAR" property="ruleType"/>
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="run_time" jdbcType="INTEGER" property="runTime" />
+    <result column="success_time" jdbcType="INTEGER" property="successTime" />
+    <result column="fail_time" jdbcType="INTEGER" property="failTime" />
+    <result column="hit_time" jdbcType="INTEGER" property="hitTime" />
+    <result column="totalCount" jdbcType="INTEGER" property="totalCount" />
+  </resultMap>
+
+  <insert id="addRuleLog" parameterType="com.daokoujinke.entity.project.RuleLog">
+    <selectKey resultType="java.lang.Integer" keyProperty="id"
+               order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_log_base (id,rule_name,rule_type,project_name,run_time,success_time,fail_time,
+    hit_time,create_time,update_time)
+    values
+    (#{id,jdbcType=INTEGER},
+    #{ruleName,jdbcType=VARCHAR},
+    #{ruleType,jdbcType=INTEGER,typeHandler=com.daokoujinke.common.customEnum.IntEnumTypeHandler},
+    #{projectName,jdbcType=VARCHAR},
+    #{runTime,jdbcType=INTEGER},
+    #{successTime,jdbcType=INTEGER},
+    #{failTime,jdbcType=INTEGER},
+    #{hitTime,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <select id="queryAllLog" resultMap="logResp">
+    select *,(select count(*)
+              from t_log_base
+              <where>
+              <if test="projectName != null and projectName != ''">
+                project_name = #{projectName}
+              </if>
+              <if test="ruleType != null and ruleType != ''">
+                and rule_type = #{ruleType}
+              </if>
+              <if test="ruleName != null and ruleName != ''">
+                and rule_name = #{ruleName}
+              </if>
+              <if test="startTime != null and startTime != ''">
+                and create_time between #{startTime} and #{endTime}
+              </if>
+              </where>) as totalCount
+    from t_log_base
+    <where>
+    <if test="projectName != null and projectName != ''">
+       project_name = #{projectName}
+    </if>
+    <if test="ruleType != null and ruleType != ''">
+      and rule_type = #{ruleType}
+    </if>
+    <if test="ruleName != null and ruleName != ''">
+      and rule_name = #{ruleName}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and create_time between #{startTime} and #{endTime}
+    </if>
+    </where>
+    limit #{begin},#{rows}
+  </select>
+
+  <select id="queryAllProjectName" resultType="java.lang.String">
+    select distinct project_name from t_log_base
+  </select>
+
+  <select id="getRuleLogByRuleName" parameterType="java.lang.String" resultType="com.daokoujinke.entity.project.RuleLog">
+    select id,rule_name ruleName,rule_type ruleType,project_name projectName,run_time runTime,success_time successTime,
+    fail_time failTime,hit_time hitTime
+    from t_log_base where rule_name = #{ruleName}
+  </select>
+
+  <update id="updateRuleLog" parameterType="com.daokoujinke.entity.project.RuleLog">
+    update t_log_base
+    <trim prefix="set" suffixOverrides=",">
+      <if test="runTime != null">run_time = #{runTime},</if>
+      <if test="successTime != null">success_time = #{successTime},</if>
+      <if test="failTime != null">fail_time = #{failTime},</if>
+      <if test="hitTime != null">hit_time = #{hitTime},</if>
+    </trim>
+    where rule_name = #{ruleName}
+  </update>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daokoujinke.mapper.project.CompanyResultMapper">
+  
+  <select id="countResultCountByType" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT count(*) from
+      (SELECT * FROM t_company_result WHERE create_time IN
+        (SELECT MAX(create_time) FROM t_company_result)) a
+    where a.result = #{resultType}
+  </select>
+
+  <select id="countAllType" resultType="java.lang.Integer">
+    SELECT count(*) from
+      (SELECT * FROM t_company_result WHERE create_time IN
+        (SELECT MAX(create_time) FROM t_company_result)) a
+  </select>
+</mapper>
